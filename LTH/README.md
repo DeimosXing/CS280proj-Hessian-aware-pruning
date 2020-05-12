@@ -7,6 +7,16 @@ This repository contains a **Pytorch** implementation of the paper [The Lottery 
 ```
 pip3 install -r requirements.txt
 ```
+
+## Our modified version
+This is our modified version based on this [repo](https://github.com/rahulvigneswaran/Lottery-Ticket-Hypothesis-in-Pytorch).
+
+We modified the pruning algorithm so that only layers that has more than 1% of the total parameters will be pruned. 
+
+We added lr warmup option so that we can reproduce the results for Resnet18 in the original paper(note that the original codebase cannot reproduce this part of the results).
+
+We also included our Hessian-aware pruning algorithm, which can be easily accessed by adding --hessian flag.
+
 ## How to run the code ? 
 ### Using datasets/architectures included with this repository :
 ```
@@ -37,6 +47,10 @@ python3 main.py --prune_type=lt --arch_type=fc1 --dataset=mnist --prune_percent=
 	- Default : `1`
 - `--gpu`	: Decide Which GPU the program should use 
 	- Default : `0`
+- `--hessian`	: Whether to run Hessian aware pruning or not 
+- `--warmup`	: Whether to use lr warmup or not
+- `--savedir`	: The desired directory to save results
+	- Default : ``
 ### Using datasets/architectures that are not included with this repository :
 - Adding a new architecture :
 	- For example, if you want to add an architecture named `new_model` with `mnist` dataset compatibility. 
@@ -114,9 +128,6 @@ Lottery-Ticket-Hypothesis-in-Pytorch
 └── utils.py
 
 ```
-
-## Interesting papers that are related to Lottery Ticket Hypothesis which I enjoyed 
-- [Deconstructing Lottery Tickets: Zeros, Signs, and the Supermask](https://eng.uber.com/deconstructing-lottery-tickets/)
 
 ## Acknowledgement 
 Parts of code were borrowed from [ktkth5](https://github.com/ktkth5/lottery-ticket-hyopothesis).
